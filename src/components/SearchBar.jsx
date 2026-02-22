@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './SearchBar.css';
 
-export default function SearchBar({ onSearch }) {
-  const [searchQuery, setSearchQuery] = useState('');
+export default function SearchBar({ onSearch, initialValue = '' }) {
+  const [searchQuery, setSearchQuery] = useState(initialValue);
+
+  useEffect(() => {
+    setSearchQuery(initialValue);
+  }, [initialValue]);
 
   const handleChange = (e) => {
     const value = e.target.value;

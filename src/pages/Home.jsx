@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import ProductFilters from '../components/ProductFilters';
 import Pagination from '../components/Pagination';
@@ -8,6 +8,7 @@ import { showToast } from '../utils/toast';
 import API_BASE_URL from '../config/api';
 
 function Home({ agregarAlCarrito, favoritos, toggleFavorito }) {
+  const location = useLocation();
   const [productos, setProductos] = useState([]);
   const [paginacion, setPaginacion] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,15 @@ function Home({ agregarAlCarrito, favoritos, toggleFavorito }) {
     sort: ''
   });
   const [pagina, setPagina] = useState(1);
+
+  // Leer parámetro q de la URL (desde sidebar categorías)
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const qParam = params.get('q');
+    if (qParam) {
+      setFilters(prev => ({ ...prev, q: qParam }));
+    }
+  }, [location.search]);
 
   const esFavorito = (prod) => {
     const id = String(prod.id || prod._id || '');
@@ -106,7 +116,7 @@ function Home({ agregarAlCarrito, favoritos, toggleFavorito }) {
       <main className="home-main">
         <div className="home-header">
           <h2 className="titulo-seccion">Nuestros Productos</h2>
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar onSearch={handleSearch} initialValue={filters.q} />
         </div>
 
         <div className="home-content">

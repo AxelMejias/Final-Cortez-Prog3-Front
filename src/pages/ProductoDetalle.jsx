@@ -61,7 +61,7 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
   }, []);
 
   const handleGoToCategoria = (categoria) => {
-    navigate(`/?categoria=${encodeURIComponent(categoria)}`);
+    navigate(`/?q=${encodeURIComponent(categoria)}`);
   };
 
   const handleAgregar = () => {
@@ -104,6 +104,21 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
       <Link to="/" className="btn-volver">&larr; Volver</Link>
       
       <div className="detalle-container">
+      <aside className="sidebar-categorias">
+        <h3>Categorías</h3>
+        <div className="categorias-lista">
+          {categorias.map((cat) => (
+            <button
+              key={cat}
+              className={`categoria-item ${producto.categoria === cat ? 'activa' : ''}`}
+              onClick={() => handleGoToCategoria(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </aside>
+
         <div className="detalle-main">
       <div className="detalle-contenido">
         <div className="detalle-imagen">
@@ -162,21 +177,6 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
         </div>
       </div>
       </div>
-
-      <aside className="sidebar-categorias">
-        <h3>Categorías</h3>
-        <div className="categorias-lista">
-          {categorias.map((cat) => (
-            <button
-              key={cat}
-              className={`categoria-item ${producto.categoria === cat ? 'activa' : ''}`}
-              onClick={() => handleGoToCategoria(cat)}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-      </aside>
     </div>
     </div>
   );
