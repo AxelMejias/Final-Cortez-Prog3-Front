@@ -179,7 +179,6 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
       </aside>
     </div>
     </div>
-    </div>
   );
 }
 
