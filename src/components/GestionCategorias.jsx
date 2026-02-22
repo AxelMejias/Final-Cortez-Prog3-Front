@@ -83,7 +83,7 @@ export default function GestionCategorias() {
     }
 
     try {
-      const response = await fetch(`http://localhost:4000/api/categorias/${encodeURIComponent(editando)}`, {
+      const response = await fetch(`${API_BASE_URL}/api/categorias/${encodeURIComponent(editando)}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ export default function GestionCategorias() {
     }
 
     try {
-      const response = await fetch(`http://localhost:4000/api/categorias/${encodeURIComponent(categoria)}`, {
+      const response = await fetch(`${API_BASE_URL}/api/categorias/${encodeURIComponent(categoria)}`, {
         method: 'DELETE',
         headers: {
           'x-admin-token': 'admin-secret-123'

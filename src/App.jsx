@@ -5,6 +5,7 @@ import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import API_BASE_URL from './config/api';
+import { showToast } from './utils/toast';
 
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -45,7 +46,7 @@ function App() {
       }
 
       try {
-        const response = await fetch(`http://localhost:4000/api/carrito/${encodeURIComponent(usuario.email)}`);
+        const response = await fetch(`${API_BASE_URL}/api/carrito/${encodeURIComponent(usuario.email)}`);
         if (response.ok) {
           const data = await response.json();
           setCarrito(data.items || []);
@@ -66,7 +67,7 @@ function App() {
       }
 
       try {
-        const response = await fetch(`http://localhost:4000/api/favoritos/${encodeURIComponent(usuario.email)}`);
+        const response = await fetch(`${API_BASE_URL}/api/favoritos/${encodeURIComponent(usuario.email)}`);
         if (response.ok) {
           const data = await response.json();
           setFavoritos(data.items || []);
@@ -82,7 +83,7 @@ function App() {
   const agregarAlCarrito = async (producto) => {
     if (usuario && usuario.tipo === 'cliente' && usuario.email) {
       try {
-        const response = await fetch(`http://localhost:4000/api/carrito/${encodeURIComponent(usuario.email)}/agregar`, {
+        const response = await fetch(`${API_BASE_URL}/api/carrito/${encodeURIComponent(usuario.email)}/agregar`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ producto })
@@ -99,13 +100,13 @@ function App() {
       setCarrito([...carrito, producto]);
     }
 
-    alert(`¡${producto.nombre} agregado al carrito!`);
+    showToast.success(`${producto.nombre} agregado al carrito`);
   };
 
   const eliminarDelCarrito = async (index) => {
     if (usuario && usuario.tipo === 'cliente' && usuario.email) {
       try {
-        const response = await fetch(`http://localhost:4000/api/carrito/${encodeURIComponent(usuario.email)}/index/${index}`, {
+        const response = await fetch(`${API_BASE_URL}/api/carrito/${encodeURIComponent(usuario.email)}/index/${index}`, {
           method: 'DELETE'
         });
 
@@ -124,7 +125,7 @@ function App() {
   const limpiarCarrito = async () => {
     if (usuario && usuario.tipo === 'cliente' && usuario.email) {
       try {
-        const response = await fetch(`http://localhost:4000/api/carrito/${encodeURIComponent(usuario.email)}`, {
+        const response = await fetch(`${API_BASE_URL}/api/carrito/${encodeURIComponent(usuario.email)}`, {
           method: 'DELETE'
         });
 
@@ -147,7 +148,7 @@ function App() {
 
   const toggleFavorito = async (producto) => {
     if (!usuario || usuario.tipo !== 'cliente' || !usuario.email) {
-      alert('Inicia sesión como cliente para usar favoritos');
+      showToast.warning('Inicia sesión como cliente para usar favoritos');
       return;
     }
 
@@ -155,7 +156,7 @@ function App() {
 
     try {
       if (esFavorito(producto)) {
-        const response = await fetch(`http://localhost:4000/api/favoritos/${encodeURIComponent(usuario.email)}/${encodeURIComponent(productoId)}`, {
+        const response = await fetch(`${API_BASE_URL}/api/favoritos/${encodeURIComponent(usuario.email)}/${encodeURIComponent(productoId)}`, {
           method: 'DELETE'
         });
         if (response.ok) {
@@ -163,7 +164,7 @@ function App() {
           setFavoritos(data.items || []);
         }
       } else {
-        const response = await fetch(`http://localhost:4000/api/favoritos/${encodeURIComponent(usuario.email)}/agregar`, {
+        const response = await fetch(`${API_BASE_URL}/api/favoritos/${encodeURIComponent(usuario.email)}/agregar`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ producto })
@@ -253,14 +254,15 @@ function App() {
 
         <ToastContainer
           position="bottom-right"
-          autoClose={3000}
-          hideProgressBar={false}
+          autoClose={1500}
+          hideProgressBar={true}
           newestOnTop={true}
           closeOnClick
           rtl={false}
-          pauseOnFocusLoss
+          pauseOnFocusLoss={false}
           draggable
-          pauseOnHover
+          pauseOnHover={false}
+          limit={3}
         />
       </div>
     </Router>

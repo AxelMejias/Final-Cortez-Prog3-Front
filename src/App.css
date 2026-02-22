@@ -665,12 +665,9 @@ footer {
   color: #E63946;
   text-decoration: none;
   font-weight: 600;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   transition: color 0.3s;
-}
-
-.btn-volver:hover {
-  color: #C41C3B;
+  font-size: 0.95rem;
 }
 
 .btn-volver:hover {
@@ -689,17 +686,43 @@ footer {
   flex: 1;
 }
 
+/* ===== SIDEBAR IZQUIERDA COMPLETA ===== */
+.sidebar-detalle {
+  width: 280px;
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  text-align: center;
+  padding: 10px;
+}
+
+.sidebar-logo img {
+  max-width: 120px;
+  height: auto;
+}
+
+.sidebar-detalle .breadcrumbs {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.sidebar-detalle .btn-volver {
+  margin-bottom: 0;
+}
+
 /* ===== SIDEBAR DE CATEGORÍAS ===== */
 .sidebar-categorias {
-  width: 280px;
   background: white;
   border: 2px solid #E63946;
   border-radius: 12px;
   padding: 25px 15px;
   box-shadow: 0 4px 12px rgba(230, 57, 70, 0.15);
-  position: sticky;
-  top: 20px;
-  height: fit-content;
 }
 
 .sidebar-categorias h3 {
@@ -748,7 +771,7 @@ footer {
 }
 
 .producto-detalle {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 40px 20px;
 }
@@ -1004,13 +1027,18 @@ footer {
     gap: 20px;
   }
 
-  .sidebar-categorias {
+  .sidebar-detalle {
     width: 100%;
     position: static;
-    border-left: none;
+  }
+
+  .sidebar-logo {
+    display: none;
+  }
+
+  .sidebar-categorias {
+    width: 100%;
     border-top: 2px solid #E63946;
-    padding-top: 20px;
-    margin-top: 20px;
   }
 
   .categorias-lista {

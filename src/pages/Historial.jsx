@@ -18,7 +18,7 @@ function Historial() {
           return;
         }
 
-        const response = await fetch(`http://localhost:4000/api/boletas/${encodeURIComponent(userEmail)}`);
+        const response = await fetch(`${API_BASE_URL}/api/boletas/${encodeURIComponent(userEmail)}`);
         if (!response.ok) {
           throw new Error('No se pudo cargar el historial');
         }

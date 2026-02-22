@@ -23,8 +23,9 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
 
   const handleToggleFavorito = () => {
     if (toggleFavorito) {
+      const yaEsFav = esFavorito(producto);
       toggleFavorito(producto);
-      showToast.success(esFavorito(producto) ? 'Removido de favoritos' : 'Agregado a favoritos');
+      showToast.success(yaEsFav ? 'Removido de favoritos' : 'Agregado a favoritos');
     }
   };
 
@@ -99,23 +100,26 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
 
   return (
     <div className="producto-detalle">
-      <Breadcrumbs items={breadcrumbItems} />
-      
-      <Link to="/" className="btn-volver">&larr; Volver</Link>
-      
       <div className="detalle-container">
-      <aside className="sidebar-categorias">
-        <h3>Categorías</h3>
-        <div className="categorias-lista">
-          {categorias.map((cat) => (
-            <button
-              key={cat}
-              className={`categoria-item ${producto.categoria === cat ? 'activa' : ''}`}
-              onClick={() => handleGoToCategoria(cat)}
-            >
-              {cat}
-            </button>
-          ))}
+      <aside className="sidebar-detalle">
+        <div className="sidebar-logo">
+          <img src="/logo-emelyn.png" alt="Librería Emelyn" />
+        </div>
+        <Breadcrumbs items={breadcrumbItems} />
+        <Link to="/" className="btn-volver">&larr; Volver</Link>
+        <div className="sidebar-categorias">
+          <h3>Categorías</h3>
+          <div className="categorias-lista">
+            {categorias.map((cat) => (
+              <button
+                key={cat}
+                className={`categoria-item ${producto.categoria === cat ? 'activa' : ''}`}
+                onClick={() => handleGoToCategoria(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
       </aside>
 

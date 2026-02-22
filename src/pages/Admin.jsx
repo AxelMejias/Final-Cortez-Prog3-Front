@@ -41,10 +41,11 @@ function Admin() {
   }, [navigate]);
 
   const cargarDatos = async () => {
+    setLoading(true);
+    setError('');
+
+    // Cargar productos
     try {
-      setLoading(true);
-      
-      // Cargar productos
       const respProductos = await fetch(`${API_BASE_URL}/api/productos`);
       if (respProductos.ok) {
         const dataProductos = await respProductos.json();
@@ -55,8 +56,12 @@ function Admin() {
             : [];
         setProductos(listaProductos);
       }
+    } catch (err) {
+      console.error('Error cargando productos:', err);
+    }
 
-      // Cargar usuarios
+    // Cargar usuarios
+    try {
       const respUsuarios = await fetch(`${API_BASE_URL}/api/admin/usuarios`, {
         headers: { 'x-admin-token': 'admin-secret-123' }
       });
@@ -64,8 +69,12 @@ function Admin() {
         const dataUsuarios = await respUsuarios.json();
         setUsuarios(Array.isArray(dataUsuarios) ? dataUsuarios : []);
       }
+    } catch (err) {
+      console.error('Error cargando usuarios:', err);
+    }
 
-      // Cargar boletas
+    // Cargar boletas
+    try {
       const respBoletas = await fetch(`${API_BASE_URL}/api/admin/boletas`, {
         headers: { 'x-admin-token': 'admin-secret-123' }
       });
@@ -73,13 +82,11 @@ function Admin() {
         const dataBoletas = await respBoletas.json();
         setBoletas(Array.isArray(dataBoletas) ? dataBoletas : []);
       }
-
-      setError('');
-      setLoading(false);
     } catch (err) {
-      setError('Error al cargar datos: ' + err.message);
-      setLoading(false);
+      console.error('Error cargando boletas:', err);
     }
+
+    setLoading(false);
   };
 
   const handleLogout = () => {
@@ -163,13 +170,17 @@ function Admin() {
       }
 
       const datosProducto = {
-        ...formData,
-        imagen: imagenFinal || 'https://via.placeholder.com/200'
+        nombre: formData.nombre,
+        categoria: formData.categoria,
+        precio: parseFloat(formData.precio),
+        imagen: imagenFinal || 'https://via.placeholder.com/200',
+        descripcion: formData.descripcion || '',
+        stock: parseInt(formData.stock) || 0
       };
 
       const url = editandoId 
-        ? `http://localhost:4000/api/productos/${editandoId}`
-        : 'http://localhost:4000/api/productos';
+        ? `${API_BASE_URL}/api/productos/${editandoId}`
+        : `${API_BASE_URL}/api/productos`;
 
       const metodo = editandoId ? 'PUT' : 'POST';
 
@@ -214,7 +225,7 @@ function Admin() {
     if (!window.confirm('¿Estás seguro?')) return;
 
     try {
-      const response = await fetch(`http://localhost:4000/api/productos/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/productos/${id}`, {
         method: 'DELETE',
         headers: { 'x-admin-token': 'admin-secret-123' }
       });
@@ -245,7 +256,7 @@ function Admin() {
   const handleVerBoletasUsuario = async (email) => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:4000/api/admin/usuarios/${encodeURIComponent(email)}/boletas`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/usuarios/${encodeURIComponent(email)}/boletas`, {
         headers: { 'x-admin-token': 'admin-secret-123' }
       });
 
@@ -271,7 +282,7 @@ function Admin() {
   // ===== GESTIÓN DE BOLETAS =====
   const handleCambiarEstadoBoleta = async (id, nuevoEstado) => {
     try {
-      const response = await fetch(`http://localhost:4000/api/admin/boletas/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/admin/boletas/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
