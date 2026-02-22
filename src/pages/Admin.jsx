@@ -45,7 +45,7 @@ function Admin() {
       setLoading(true);
       
       // Cargar productos
-      const respProductos = await fetch(\\/api/productos');
+      const respProductos = await fetch(`${API_BASE_URL}/api/productos`);
       if (respProductos.ok) {
         const dataProductos = await respProductos.json();
         const listaProductos = Array.isArray(dataProductos)
@@ -57,7 +57,7 @@ function Admin() {
       }
 
       // Cargar usuarios
-      const respUsuarios = await fetch(\\/api/admin/usuarios', {
+      const respUsuarios = await fetch(`${API_BASE_URL}/api/admin/usuarios`, {
         headers: { 'x-admin-token': 'admin-secret-123' }
       });
       if (respUsuarios.ok) {
@@ -66,7 +66,7 @@ function Admin() {
       }
 
       // Cargar boletas
-      const respBoletas = await fetch(\\/api/admin/boletas', {
+      const respBoletas = await fetch(`${API_BASE_URL}/api/admin/boletas`, {
         headers: { 'x-admin-token': 'admin-secret-123' }
       });
       if (respBoletas.ok) {
@@ -123,7 +123,7 @@ function Admin() {
       const formDataUpload = new FormData();
       formDataUpload.append('imagen', imagenFile);
 
-      const response = await fetch(\\/api/admin/upload-imagen', {
+      const response = await fetch(`${API_BASE_URL}/api/admin/upload-imagen`, {
         method: 'POST',
         headers: {
           'x-admin-token': 'admin-secret-123'

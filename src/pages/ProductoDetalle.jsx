@@ -28,7 +28,7 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
   };
 
   useEffect(() => {
-    fetch(\\/api/productos')
+    fetch(`${API_BASE_URL}/api/productos`)
       .then(res => res.json())
       .then(data => {
         const productos = Array.isArray(data) ? data : data.productos || [];

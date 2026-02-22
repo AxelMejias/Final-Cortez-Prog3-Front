@@ -14,7 +14,7 @@ export default function GestionCategorias() {
   const cargarCategorias = async () => {
     setLoading(true);
     try {
-      const response = await fetch(\\/api/categorias');
+      const response = await fetch(`${API_BASE_URL}/api/categorias`);
       if (response.ok) {
         const data = await response.json();
         setCategorias(data);
@@ -42,7 +42,7 @@ export default function GestionCategorias() {
     }
 
     try {
-      const response = await fetch(\\/api/categorias', {
+      const response = await fetch(`${API_BASE_URL}/api/categorias`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

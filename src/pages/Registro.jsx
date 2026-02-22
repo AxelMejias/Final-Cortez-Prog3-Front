@@ -35,7 +35,7 @@ function Registro({ onLogin }) {
     }
 
     try {
-      const registroResponse = await fetch(\\/api/register', {
+      const registroResponse = await fetch(`${API_BASE_URL}/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ function Registro({ onLogin }) {
         return;
       }
 
-      const loginResponse = await fetch(\\/api/login', {
+      const loginResponse = await fetch(`${API_BASE_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
