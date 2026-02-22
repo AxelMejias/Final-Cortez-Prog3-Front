@@ -1,0 +1,31 @@
+/* Archivo: src/index.css */
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  /* ESTO ES LO IMPORTANTE: */
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw; /* 100% del ancho de la ventana */
+  min-height: 100vh;
+  display: block; /* A veces Vite pone flex, lo sacamos */
+  background-color: #fdfdfd;
+}
+
+/* El contenedor donde vive React */
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left; /* Reseteamos alineación */
+}
