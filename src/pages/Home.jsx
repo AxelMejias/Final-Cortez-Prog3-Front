@@ -26,13 +26,16 @@ function Home({ agregarAlCarrito, favoritos, toggleFavorito }) {
   });
   const [pagina, setPagina] = useState(1);
 
-  // Leer parámetro q de la URL (desde sidebar categorías)
+  // Leer parámetros de la URL (desde sidebar categorías o búsqueda)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const qParam = params.get('q');
-    if (qParam) {
-      setFilters(prev => ({ ...prev, q: qParam }));
-    }
+    const catParam = params.get('categoria');
+    setFilters(prev => ({
+      ...prev,
+      q: qParam || '',
+      categoria: catParam || ''
+    }));
   }, [location.search]);
 
   const esFavorito = (prod) => {

@@ -62,7 +62,7 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
   }, []);
 
   const handleGoToCategoria = (categoria) => {
-    navigate(`/?q=${encodeURIComponent(categoria)}`);
+    navigate(`/?categoria=${encodeURIComponent(categoria)}`);
   };
 
   const handleAgregar = () => {
