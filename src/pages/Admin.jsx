@@ -193,7 +193,10 @@ function Admin() {
         body: JSON.stringify(datosProducto)
       });
 
-      if (!response.ok) throw new Error('Error al guardar producto');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || `Error al guardar producto (${response.status})`);
+      }
 
       setFormData({
         nombre: '',
