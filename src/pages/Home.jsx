@@ -15,27 +15,30 @@ function Home({ agregarAlCarrito, favoritos, toggleFavorito }) {
   const [categorias, setCategorias] = useState([]);
   const [menuAbierto, setMenuAbierto] = useState(false);
 
-  // Estado de filtros
-  const [filters, setFilters] = useState({
-    q: '',
-    categoria: '',
-    precioMin: '',
-    precioMax: '',
-    conStock: false,
-    sort: ''
-  });
+  // Estado de filtros - inicializar desde URL para evitar race condition
+  const getInitialFilters = () => {
+    const params = new URLSearchParams(location.search);
+    return {
+      q: params.get('q') || '',
+      categoria: params.get('categoria') || '',
+      precioMin: '',
+      precioMax: '',
+      conStock: false,
+      sort: ''
+    };
+  };
+  const [filters, setFilters] = useState(getInitialFilters);
   const [pagina, setPagina] = useState(1);
 
-  // Leer parámetros de la URL (desde sidebar categorías o búsqueda)
+  // Actualizar filtros cuando la URL cambia (navegación interna)
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const qParam = params.get('q');
-    const catParam = params.get('categoria');
-    setFilters(prev => ({
-      ...prev,
-      q: qParam || '',
-      categoria: catParam || ''
-    }));
+    const qParam = params.get('q') || '';
+    const catParam = params.get('categoria') || '';
+    setFilters(prev => {
+      if (prev.q === qParam && prev.categoria === catParam) return prev;
+      return { ...prev, q: qParam, categoria: catParam };
+    });
   }, [location.search]);
 
   const esFavorito = (prod) => {
