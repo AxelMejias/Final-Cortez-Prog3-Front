@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../config/api';
 
 function Favoritos({ favoritos, toggleFavorito, agregarAlCarrito }) {
   if (!favoritos || favoritos.length === 0) {

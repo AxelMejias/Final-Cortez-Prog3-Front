@@ -5,6 +5,7 @@ import ProductFilters from '../components/ProductFilters';
 import Pagination from '../components/Pagination';
 import Loading from '../components/Loading';
 import { showToast } from '../utils/toast';
+import API_BASE_URL from '../config/api';
 
 function Home({ agregarAlCarrito, favoritos, toggleFavorito }) {
   const [productos, setProductos] = useState([]);
@@ -33,7 +34,7 @@ function Home({ agregarAlCarrito, favoritos, toggleFavorito }) {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/productos?limit=1000');
+        const response = await fetch(`${API_BASE_URL}/api/productos?limit=1000`);
         if (response.ok) {
           const data = await response.json();
           const cats = [...new Set(data.productos.map(p => p.categoria))].filter(Boolean);
@@ -60,7 +61,7 @@ function Home({ agregarAlCarrito, favoritos, toggleFavorito }) {
       params.append('page', pageNum);
       params.append('limit', 12);
 
-      const response = await fetch(`http://localhost:4000/api/productos?${params.toString()}`);
+      const response = await fetch(`${API_BASE_URL}/api/productos?${params.toString()}`);
       if (response.ok) {
         const data = await response.json();
         setProductos(data.productos || []);

@@ -1,5 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
+import API_BASE_URL from '../config/api';
 
 function Pago({ carrito, usuario, limpiarCarrito }) {
   const navigate = useNavigate();
@@ -65,7 +66,7 @@ function Pago({ carrito, usuario, limpiarCarrito }) {
       const subtotal = carrito.reduce((sum, prod) => sum + prod.precio, 0);
       const total = subtotal + 500 + Math.round(subtotal * 0.21);
 
-      const boletaResponse = await fetch('http://localhost:4000/api/boletas', {
+      const boletaResponse = await fetch(\\/api/boletas', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

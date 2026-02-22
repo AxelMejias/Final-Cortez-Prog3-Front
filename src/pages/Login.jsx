@@ -1,5 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
+import API_BASE_URL from '../config/api';
 
 function Login({ onLogin }) {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Login({ onLogin }) {
     }
 
     try {
-      const response = await fetch('http://localhost:4000/api/login', {
+      const response = await fetch(`${API_BASE_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

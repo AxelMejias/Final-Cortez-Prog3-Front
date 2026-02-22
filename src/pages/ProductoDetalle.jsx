@@ -1,5 +1,6 @@
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api';
 import Breadcrumbs from '../components/Breadcrumbs';
 import ImageZoom from '../components/ImageZoom';
 import Loading from '../components/Loading';
@@ -27,7 +28,7 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
   };
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/productos')
+    fetch(\\/api/productos')
       .then(res => res.json())
       .then(data => {
         const productos = Array.isArray(data) ? data : data.productos || [];

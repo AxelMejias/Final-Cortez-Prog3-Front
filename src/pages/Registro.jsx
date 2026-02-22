@@ -1,5 +1,6 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
+import API_BASE_URL from '../config/api';
 
 function Registro({ onLogin }) {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ function Registro({ onLogin }) {
     }
 
     try {
-      const registroResponse = await fetch('http://localhost:4000/api/register', {
+      const registroResponse = await fetch(\\/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -50,7 +51,7 @@ function Registro({ onLogin }) {
         return;
       }
 
-      const loginResponse = await fetch('http://localhost:4000/api/login', {
+      const loginResponse = await fetch(\\/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

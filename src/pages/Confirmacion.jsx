@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../config/api';
 
 function Confirmacion() {
   const numeroOrden = Math.floor(100000 + Math.random() * 900000);

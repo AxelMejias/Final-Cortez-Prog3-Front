@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import API_BASE_URL from '../config/api';
 
 export default function OlvidarContraseña() {
     const [email, setEmail] = useState('');
@@ -21,7 +22,7 @@ export default function OlvidarContraseña() {
         setLoading(true);
 
         try {
-            const res = await fetch('http://localhost:4000/api/forgot-password', {
+            const res = await fetch(\\/api/forgot-password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email })

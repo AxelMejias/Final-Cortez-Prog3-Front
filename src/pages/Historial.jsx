@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api';
 
 function Historial() {
   const [esAdmin, setEsAdmin] = useState(false);

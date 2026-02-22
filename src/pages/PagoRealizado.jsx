@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import API_BASE_URL from '../config/api';
 
 function PagoRealizado() {
   const location = useLocation();

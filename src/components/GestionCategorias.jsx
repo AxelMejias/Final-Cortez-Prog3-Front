@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { showToast } from '../utils/toast';
+import API_BASE_URL from '../config/api';
 import Loading from './Loading';
 import './GestionCategorias.css';
 
@@ -13,7 +14,7 @@ export default function GestionCategorias() {
   const cargarCategorias = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:4000/api/categorias');
+      const response = await fetch(\\/api/categorias');
       if (response.ok) {
         const data = await response.json();
         setCategorias(data);
@@ -41,7 +42,7 @@ export default function GestionCategorias() {
     }
 
     try {
-      const response = await fetch('http://localhost:4000/api/categorias', {
+      const response = await fetch(\\/api/categorias', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

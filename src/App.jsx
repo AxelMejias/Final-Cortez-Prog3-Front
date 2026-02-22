@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import API_BASE_URL from './config/api';
 
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -180,7 +181,7 @@ function App() {
     try {
       const email = localStorage.getItem('userEmail');
       if (email) {
-        await fetch('http://localhost:4000/api/logout', {
+        await fetch(\\/api/logout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email })

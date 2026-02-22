@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../config/api';
 
 function Carrito({ carrito, eliminarDelCarrito, limpiarCarrito }) {
   const calcularTotal = () => carrito.reduce((sum, prod) => sum + prod.precio, 0);

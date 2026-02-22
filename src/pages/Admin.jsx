@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import GestionCategorias from '../components/GestionCategorias';
+import API_BASE_URL from '../config/api';
 
 function Admin() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ function Admin() {
       setLoading(true);
       
       // Cargar productos
-      const respProductos = await fetch('http://localhost:4000/api/productos');
+      const respProductos = await fetch(\\/api/productos');
       if (respProductos.ok) {
         const dataProductos = await respProductos.json();
         const listaProductos = Array.isArray(dataProductos)
@@ -56,7 +57,7 @@ function Admin() {
       }
 
       // Cargar usuarios
-      const respUsuarios = await fetch('http://localhost:4000/api/admin/usuarios', {
+      const respUsuarios = await fetch(\\/api/admin/usuarios', {
         headers: { 'x-admin-token': 'admin-secret-123' }
       });
       if (respUsuarios.ok) {
@@ -65,7 +66,7 @@ function Admin() {
       }
 
       // Cargar boletas
-      const respBoletas = await fetch('http://localhost:4000/api/admin/boletas', {
+      const respBoletas = await fetch(\\/api/admin/boletas', {
         headers: { 'x-admin-token': 'admin-secret-123' }
       });
       if (respBoletas.ok) {
@@ -122,7 +123,7 @@ function Admin() {
       const formDataUpload = new FormData();
       formDataUpload.append('imagen', imagenFile);
 
-      const response = await fetch('http://localhost:4000/api/admin/upload-imagen', {
+      const response = await fetch(\\/api/admin/upload-imagen', {
         method: 'POST',
         headers: {
           'x-admin-token': 'admin-secret-123'
