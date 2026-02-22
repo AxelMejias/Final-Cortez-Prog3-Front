@@ -181,7 +181,7 @@ function App() {
     try {
       const email = localStorage.getItem('userEmail');
       if (email) {
-        await fetch(\\/api/logout', {
+        await fetch(`${API_BASE_URL}/api/logout`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email })
