@@ -102,9 +102,6 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
     <div className="producto-detalle">
       <div className="detalle-container">
       <aside className="sidebar-detalle">
-        <div className="sidebar-logo">
-          <img src="/logo-emelyn.png" alt="Librería Emelyn" />
-        </div>
         <Breadcrumbs items={breadcrumbItems} />
         <Link to="/" className="btn-volver">&larr; Volver</Link>
         <div className="sidebar-categorias">

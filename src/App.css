@@ -697,16 +697,6 @@ footer {
   flex-shrink: 0;
 }
 
-.sidebar-logo {
-  text-align: center;
-  padding: 10px;
-}
-
-.sidebar-logo img {
-  max-width: 120px;
-  height: auto;
-}
-
 .sidebar-detalle .breadcrumbs {
   margin: 0;
   font-size: 0.85rem;
@@ -1030,10 +1020,6 @@ footer {
   .sidebar-detalle {
     width: 100%;
     position: static;
-  }
-
-  .sidebar-logo {
-    display: none;
   }
 
   .sidebar-categorias {
