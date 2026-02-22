@@ -160,23 +160,25 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
             {estaAgotado ? 'Producto Agotado' : `Agregar al Carrito (${cantidad})`}
           </button>
         </div>
-        </div>
-
-        <aside className="sidebar-categorias">
-          <h3>Categorías</h3>
-          <div className="categorias-lista">
-            {categorias.map((cat) => (
-              <button
-                key={cat}
-                className={`categoria-item ${producto.categoria === cat ? 'activa' : ''}`}
-                onClick={() => handleGoToCategoria(cat)}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </aside>
       </div>
+      </div>
+
+      <aside className="sidebar-categorias">
+        <h3>Categorías</h3>
+        <div className="categorias-lista">
+          {categorias.map((cat) => (
+            <button
+              key={cat}
+              className={`categoria-item ${producto.categoria === cat ? 'activa' : ''}`}
+              onClick={() => handleGoToCategoria(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </aside>
+    </div>
+    </div>
     </div>
   );
 }
