@@ -223,7 +223,31 @@ function App() {
         </Routes>
 
         <footer>
-          <p>Librería Emelyn © 2026 - Yapeyú, Corrientes</p>
+          <div className="footer-content">
+            <div className="footer-info">
+              <p>Librería Emelyn © 2026 - Yapeyú, Corrientes</p>
+            </div>
+            <div className="footer-social">
+              <a 
+                href="https://www.instagram.com/libreriaemelyn/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                title="Seguinos en Instagram"
+                className="social-icon"
+              >
+                📷
+              </a>
+              <a 
+                href="https://wa.me/543772402029" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                title="Contactanos por WhatsApp"
+                className="social-icon"
+              >
+                💬
+              </a>
+            </div>
+          </div>
         </footer>
 
         <ToastContainer

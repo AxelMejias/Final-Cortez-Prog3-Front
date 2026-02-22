@@ -13,6 +13,7 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
   const [producto, setProducto] = useState(null);
   const [cantidad, setCantidad] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [categorias, setCategorias] = useState([]);
 
   const esFavorito = (prod) => {
     if (!prod) return false;
@@ -41,6 +42,27 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
         setLoading(false);
       });
   }, [id]);
+
+  useEffect(() => {
+    const fetchCategorias = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/productos?limit=1000`);
+        if (response.ok) {
+          const data = await response.json();
+          const productos = Array.isArray(data) ? data : data.productos || [];
+          const cats = [...new Set(productos.map(p => p.categoria))].filter(Boolean);
+          setCategorias(cats);
+        }
+      } catch (error) {
+        console.error('Error al cargar categorías:', error);
+      }
+    };
+    fetchCategorias();
+  }, []);
+
+  const handleGoToCategoria = (categoria) => {
+    navigate(`/?categoria=${encodeURIComponent(categoria)}`);
+  };
 
   const handleAgregar = () => {
     if (producto.stock <= 0) {
@@ -80,6 +102,21 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
       <Breadcrumbs items={breadcrumbItems} />
       
       <Link to="/" className="btn-volver">&larr; Volver</Link>
+
+      <div className="categorias-barra">
+        <div className="categorias-titulo">Categorías:</div>
+        <div className="categorias-scroll">
+          {categorias.map((cat) => (
+            <button
+              key={cat}
+              className={`categoria-btn ${producto.categoria === cat ? 'activa' : ''}`}
+              onClick={() => handleGoToCategoria(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
       
       <div className="detalle-contenido">
         <div className="detalle-imagen">
