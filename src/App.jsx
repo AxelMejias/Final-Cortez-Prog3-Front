@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import API_BASE_URL from './config/api';
@@ -235,7 +236,7 @@ function App() {
                 title="Seguinos en Instagram"
                 className="social-icon"
               >
-                📷
+                <FaInstagram />
               </a>
               <a 
                 href="https://wa.me/543772402029" 
@@ -244,7 +245,7 @@ function App() {
                 title="Contactanos por WhatsApp"
                 className="social-icon"
               >
-                💬
+                <FaWhatsapp />
               </a>
             </div>
           </div>

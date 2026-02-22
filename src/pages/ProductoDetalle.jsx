@@ -102,22 +102,9 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
       <Breadcrumbs items={breadcrumbItems} />
       
       <Link to="/" className="btn-volver">&larr; Volver</Link>
-
-      <div className="categorias-barra">
-        <div className="categorias-titulo">Categorías:</div>
-        <div className="categorias-scroll">
-          {categorias.map((cat) => (
-            <button
-              key={cat}
-              className={`categoria-btn ${producto.categoria === cat ? 'activa' : ''}`}
-              onClick={() => handleGoToCategoria(cat)}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-      </div>
       
+      <div className="detalle-container">
+        <div className="detalle-main">
       <div className="detalle-contenido">
         <div className="detalle-imagen">
           <ImageZoom src={producto.imagen} alt={producto.nombre} simpleHover={true} />
@@ -173,6 +160,22 @@ function ProductoDetalle({ agregarAlCarrito, favoritos = [], toggleFavorito }) {
             {estaAgotado ? 'Producto Agotado' : `Agregar al Carrito (${cantidad})`}
           </button>
         </div>
+        </div>
+
+        <aside className="sidebar-categorias">
+          <h3>Categorías</h3>
+          <div className="categorias-lista">
+            {categorias.map((cat) => (
+              <button
+                key={cat}
+                className={`categoria-item ${producto.categoria === cat ? 'activa' : ''}`}
+                onClick={() => handleGoToCategoria(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </aside>
       </div>
     </div>
   );
