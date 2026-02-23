@@ -1897,6 +1897,44 @@ footer {
   background-color: #f9f9f9;
 }
 
+/* Paginación Admin */
+.admin-paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.2rem;
+  padding: 0.8rem 0;
+  flex-wrap: wrap;
+}
+
+.btn-pag {
+  padding: 0.45rem 0.9rem;
+  border: 2px solid #E63946;
+  background: white;
+  color: #E63946;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.btn-pag:hover:not(:disabled) {
+  background: #E63946;
+  color: white;
+}
+
+.btn-pag:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-pag-activo {
+  background: #E63946;
+  color: white;
+}
+
 .celda-nombre {
   font-weight: 600;
   color: #1D1D1D;

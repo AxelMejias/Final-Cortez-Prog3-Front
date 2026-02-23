@@ -15,6 +15,8 @@ function Admin() {
   const [editandoId, setEditandoId] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [paginaAdmin, setPaginaAdmin] = useState(1);
+  const productosPorPagina = 15;
 
   const adminData = JSON.parse(localStorage.getItem('userData') || '{}');
 
@@ -46,7 +48,7 @@ function Admin() {
 
     // Cargar productos
     try {
-      const respProductos = await fetch(`${API_BASE_URL}/api/productos`);
+      const respProductos = await fetch(`${API_BASE_URL}/api/productos?limit=500`);
       if (respProductos.ok) {
         const dataProductos = await respProductos.json();
         const listaProductos = Array.isArray(dataProductos)
@@ -489,6 +491,7 @@ function Admin() {
             {productos.length === 0 ? (
               <p className="texto-vacio">No hay productos</p>
             ) : (
+              <>
               <div className="tabla-responsive">
                 <table className="admin-tabla">
                   <thead>
@@ -502,7 +505,9 @@ function Admin() {
                     </tr>
                   </thead>
                   <tbody>
-                    {productos.map(producto => (
+                    {productos
+                      .slice((paginaAdmin - 1) * productosPorPagina, paginaAdmin * productosPorPagina)
+                      .map(producto => (
                       <tr key={producto.id || producto._id}>
                         <td>#{producto.id || producto._id}</td>
                         <td className="celda-nombre">{producto.nombre}</td>
@@ -522,6 +527,36 @@ function Admin() {
                   </tbody>
                 </table>
               </div>
+
+              {/* Paginación */}
+              {productos.length > productosPorPagina && (
+                <div className="admin-paginacion">
+                  <button
+                    onClick={() => setPaginaAdmin(p => Math.max(1, p - 1))}
+                    disabled={paginaAdmin === 1}
+                    className="btn-pag"
+                  >
+                    ← Anterior
+                  </button>
+                  {Array.from({ length: Math.ceil(productos.length / productosPorPagina) }, (_, i) => (
+                    <button
+                      key={i + 1}
+                      onClick={() => setPaginaAdmin(i + 1)}
+                      className={`btn-pag ${paginaAdmin === i + 1 ? 'btn-pag-activo' : ''}`}
+                    >
+                      {i + 1}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => setPaginaAdmin(p => Math.min(Math.ceil(productos.length / productosPorPagina), p + 1))}
+                    disabled={paginaAdmin === Math.ceil(productos.length / productosPorPagina)}
+                    className="btn-pag"
+                  >
+                    Siguiente →
+                  </button>
+                </div>
+              )}
+              </>
             )}
           </div>
         </div>
