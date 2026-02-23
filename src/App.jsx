@@ -97,10 +97,44 @@ function App() {
         console.error('Error agregando al carrito:', error);
       }
     } else {
-      setCarrito([...carrito, producto]);
+      // Local: agrupar por id
+      const productoId = String(producto.id || producto._id || '');
+      const existe = carrito.findIndex(p => String(p.id || p._id || '') === productoId);
+      if (existe >= 0) {
+        const nuevo = [...carrito];
+        nuevo[existe] = { ...nuevo[existe], cantidad: (nuevo[existe].cantidad || 1) + 1 };
+        setCarrito(nuevo);
+      } else {
+        setCarrito([...carrito, { ...producto, cantidad: 1 }]);
+      }
     }
 
     showToast.success(`${producto.nombre} agregado al carrito`);
+  };
+
+  const actualizarCantidadCarrito = async (index, cantidad) => {
+    if (usuario && usuario.tipo === 'cliente' && usuario.email) {
+      try {
+        const item = carrito[index];
+        const productoId = String(item.id || item._id || '');
+        const response = await fetch(`${API_BASE_URL}/api/carrito/${encodeURIComponent(usuario.email)}/item/${productoId}/cantidad`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cantidad })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setCarrito(data.items || []);
+        }
+      } catch (error) {
+        console.error('Error actualizando cantidad:', error);
+      }
+    } else {
+      const nuevo = [...carrito];
+      nuevo[index] = { ...nuevo[index], cantidad };
+      setCarrito(nuevo);
+    }
   };
 
   const eliminarDelCarrito = async (index) => {
@@ -211,7 +245,7 @@ function App() {
           <Route path="/" element={<Home agregarAlCarrito={agregarAlCarrito} favoritos={favoritos} toggleFavorito={toggleFavorito} />} />
           <Route path="/producto/:id" element={<ProductoDetalle agregarAlCarrito={agregarAlCarrito} favoritos={favoritos} toggleFavorito={toggleFavorito} />} />
           <Route path="/favoritos" element={<Favoritos favoritos={favoritos} toggleFavorito={toggleFavorito} agregarAlCarrito={agregarAlCarrito} />} />
-          <Route path="/carrito" element={<Carrito carrito={carrito} eliminarDelCarrito={eliminarDelCarrito} limpiarCarrito={limpiarCarrito} />} />
+          <Route path="/carrito" element={<Carrito carrito={carrito} eliminarDelCarrito={eliminarDelCarrito} actualizarCantidad={actualizarCantidadCarrito} limpiarCarrito={limpiarCarrito} />} />
           <Route path="/login" element={<Login onLogin={setUsuario} />} />
           <Route path="/registro" element={<Registro onLogin={setUsuario} />} />
           <Route path="/forgot-password" element={<OlvidarContraseña />} />

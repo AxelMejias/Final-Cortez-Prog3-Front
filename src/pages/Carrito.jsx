@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import API_BASE_URL from '../config/api';
 
-function Carrito({ carrito, eliminarDelCarrito, limpiarCarrito }) {
-  const calcularTotal = () => carrito.reduce((sum, prod) => sum + prod.precio, 0);
+function Carrito({ carrito, eliminarDelCarrito, actualizarCantidad, limpiarCarrito }) {
+  const calcularTotal = () => carrito.reduce((sum, prod) => sum + prod.precio * (prod.cantidad || 1), 0);
+  const totalItems = carrito.reduce((sum, prod) => sum + (prod.cantidad || 1), 0);
 
   if (carrito.length === 0) {
     return (
@@ -29,11 +30,32 @@ function Carrito({ carrito, eliminarDelCarrito, limpiarCarrito }) {
                 <p className="categoria-tag">{producto.categoria}</p>
                 <p className="precio-item">${producto.precio}</p>
               </div>
+              <div className="item-cantidad">
+                <button
+                  className="btn-cantidad"
+                  onClick={() => {
+                    const cant = (producto.cantidad || 1);
+                    if (cant > 1) actualizarCantidad(index, cant - 1);
+                  }}
+                  disabled={(producto.cantidad || 1) <= 1}
+                >
+                  −
+                </button>
+                <span className="cantidad-valor">{producto.cantidad || 1}</span>
+                <button
+                  className="btn-cantidad"
+                  onClick={() => actualizarCantidad(index, (producto.cantidad || 1) + 1)}
+                >
+                  +
+                </button>
+              </div>
+              <p className="precio-subtotal">${producto.precio * (producto.cantidad || 1)}</p>
               <button 
                 onClick={() => eliminarDelCarrito(index)} 
-                className="btn-eliminar"
+                className="btn-eliminar-carrito"
+                title="Eliminar del carrito"
               >
-                🗑️ Eliminar
+                🗑️
               </button>
             </div>
           ))}
@@ -42,7 +64,7 @@ function Carrito({ carrito, eliminarDelCarrito, limpiarCarrito }) {
         <div className="carrito-resumen">
           <h3>Resumen</h3>
           <div className="fila-resumen">
-            <span>Subtotal ({carrito.length} productos):</span>
+            <span>Subtotal ({totalItems} {totalItems === 1 ? 'producto' : 'productos'}):</span>
             <span className="precio-resumen">${calcularTotal()}</span>
           </div>
           <div className="fila-resumen">

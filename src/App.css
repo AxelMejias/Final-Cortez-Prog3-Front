@@ -560,6 +560,90 @@ footer {
   color: white;
 }
 
+/* Selector de cantidad en carrito */
+.item-cantidad {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.btn-cantidad {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #E63946;
+  background: white;
+  color: #E63946;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.btn-cantidad:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.btn-cantidad:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.btn-cantidad:hover:not(:disabled) {
+  background: #E63946;
+  color: white;
+}
+
+.btn-cantidad:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cantidad-valor {
+  width: 36px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 2px solid #E63946;
+  border-bottom: 2px solid #E63946;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1D1D1D;
+  background: white;
+  user-select: none;
+}
+
+.precio-subtotal {
+  font-weight: 700;
+  color: #E63946;
+  font-size: 1.2rem;
+  min-width: 80px;
+  text-align: right;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.btn-eliminar-carrito {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.btn-eliminar-carrito:hover {
+  opacity: 1;
+  background-color: #FFE0E6;
+}
+
 .carrito-vacio {
   text-align: center;
   padding: 60px 20px;
