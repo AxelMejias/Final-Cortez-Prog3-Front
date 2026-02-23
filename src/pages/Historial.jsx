@@ -107,7 +107,7 @@ function Historial() {
         <button className="btn-descargar">⬇️ Descargar Factura</button>
         {esAdmin && (
           <Link to="/admin" className="btn-admin-gestionar">
-            ⚙️ Gestionar Prod
+            ⚙️ Gestionar Pagina
           </Link>
         )}
       </div>
