@@ -73,12 +73,6 @@ function Login({ onLogin }) {
         
         {error && <div className="error-mensaje">{error}</div>}
 
-        <div className="info-demo">
-          <p><strong>Demo Admin:</strong></p>
-          <p>Email: admin@emelyn.com</p>
-          <p>Pass: admin123</p>
-        </div>
-
         <form onSubmit={handleSubmit} className="formulario-login">
           <div className="form-grupo">
             <label>Correo Electrónico</label>
